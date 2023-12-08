@@ -1,22 +1,5 @@
 import { io } from "socket.io-client";
 
-// class Map {
-//     constructor(latitude, longitude){
-//         this.latitude = latitude;
-//         this.longitude = longitude;
-//         this.map = L.map('map', {
-//             center: [latitude, longitude],
-//             zoom: 16    
-//         });
-//     }
-//     init(){
-//         this.map
-//     }
-
-// }
-
-
-
 (() => {
     'use strict';
 
@@ -33,7 +16,7 @@ import { io } from "socket.io-client";
                 }).addTo(map);
 
                 const customIcon = L.icon({
-                    iconUrl: './public/bus.png',
+                    iconUrl: './bus.png',
                     iconSize: [90, 90],
                     iconAnchor: [50, 50],
                     popupAnchor: [0, -40]
@@ -41,7 +24,7 @@ import { io } from "socket.io-client";
 
                 const markers = {}; // Objeto para almacenar los marcadores de otros clientes
 
-                const socket = io("https://movility.azurewebsites.net");
+                const socket = io("http://localhost:80");
 
                 // Añadir el marcador del cliente actual
                 const currentMarker = L.marker([position.coords.latitude, position.coords.longitude], { icon: customIcon }).addTo(map);
@@ -51,6 +34,7 @@ import { io } from "socket.io-client";
 
                 // Recibir ubicaciones de otros clientes
                 socket.on("message", function (message) {
+                    console.log(message)
                     const [latitude, longitude] = message;
                     if (!markers[message.id]) {
                         markers[message.id] = L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
@@ -116,28 +100,4 @@ import { io } from "socket.io-client";
 
 // })();
 
-
-
-
-
-function loadMap(latitude, longitude){
- 
-    var map = L.map('map', {
-        center: [latitude, longitude],
-        zoom: 16    
-    });
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-             attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    const customIcon = L.icon({
-        iconUrl: './public/bus.png',
-        iconSize: [90, 90], 
-        iconAnchor: [50, 50],
-        popupAnchor: [0, -40] 
-    })
-
-    const marker = L.marker([latitude, longitude], {icon: customIcon}).addTo(map);
-    marker.remove()
-}
 
