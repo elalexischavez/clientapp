@@ -33,7 +33,7 @@ import { io } from "socket.io-client";
                 }).addTo(map);
 
                 const customIcon = L.icon({
-                    iconUrl: './public/bus.png',
+                    iconUrl: './bus.png',
                     iconSize: [90, 90],
                     iconAnchor: [50, 50],
                     popupAnchor: [0, -40]
