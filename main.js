@@ -24,7 +24,7 @@ import { io } from "socket.io-client";
 
                 const markers = {}; // Objeto para almacenar los marcadores de otros clientes
 
-                const socket = io("movility.azurewebsites.net");
+                const socket = io("http://localhost:80");
 
                 // Añadir el marcador del cliente actual
                 const currentMarker = L.marker([position.coords.latitude, position.coords.longitude], { icon: customIcon }).addTo(map);
@@ -35,7 +35,7 @@ import { io } from "socket.io-client";
                 // Recibir ubicaciones de otros clientes
                 socket.on("message", function (message) {
                     console.log(message)
-                    const [latitude, longitude] = message;
+                    const [latitude, longitude] = message.location;
                     if (!markers[message.id]) {
                         markers[message.id] = L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
                     } else {
