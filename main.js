@@ -24,7 +24,7 @@ import { io } from "socket.io-client";
 
                 const markers = {}; // Objeto para almacenar los marcadores de otros clientes
 
-                const socket = io("http://localhost:80");
+                const socket = io("https://nice-glacier-00d802810.4.azurestaticapps.net");
 
                 // Añadir el marcador del cliente actual
                 const currentMarker = L.marker([position.coords.latitude, position.coords.longitude], { icon: customIcon }).addTo(map);
